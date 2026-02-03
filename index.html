@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CARE-PRO Recruitment Portal</title>
+</head>
+<body>
+  <h2>CARE-PRO Candidate List</h2>
+  <table border="1" id="candidateTable">
+    <tr>
+      <th>Name</th>
+      <th>Job Title</th>
+      <th>Nationality</th>
+      <th>Salary</th>
+      <th>Status</th>
+    </tr>
+  </table>
+
+<script>
+fetch("https://opensheet.elk.sh/SHEET_ID/Sheet1")
+  .then(res => res.json())
+  .then(data => {
+    let table = document.getElementById("candidateTable");
+    data.forEach(row => {
+      let tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><a href="cv.html?id=${row.CandidateID}">${row.CandidateName}</a></td>
+        <td>${row.JobTitle}</td>
+        <td>${row.Nationality}</td>
+        <td>${row.Salary}</td>
+        <td>${row.Status}</td>
+      `;
+      table.appendChild(tr);
+    });
+  });
+</script>
+</body>
+</html>
