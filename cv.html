@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Candidate CV</title>
+  <style>
+    body { font-family: Arial; margin: 40px; }
+    .cv-box { border: 1px solid #ccc; padding: 20px; max-width: 700px; }
+    img { width: 120px; float: right; }
+  </style>
+</head>
+<body>
+
+<div class="cv-box">
+  <img id="photo">
+  <h2 id="name"></h2>
+  <h4 id="job"></h4>
+
+  <p><b>Nationality:</b> <span id="nation"></span></p>
+  <p><b>Iqama / Passport:</b> <span id="passport"></span></p>
+  <p><b>Date of Birth:</b> <span id="dob"></span></p>
+  <p><b>Marital Status:</b> <span id="marital"></span></p>
+
+  <h3>Contact</h3>
+  <p><b>Mobile:</b> <span id="mobile"></span></p>
+  <p><b>Email:</b> <span id="email"></span></p>
+
+  <h3>Education</h3>
+  <p id="education"></p>
+
+  <h3>Experience</h3>
+  <p id="experience"></p>
+
+  <h3>Skills</h3>
+  <p id="skills"></p>
+
+  <h3>Languages</h3>
+  <p id="languages"></p>
+
+  <h3>Salary Expectation</h3>
+  <p id="salary"></p>
+
+  <h3>Recruitment Status</h3>
+  <p><b>Process:</b> <span id="process"></span></p>
+  <p><b>Status:</b> <span id="status"></span></p>
+</div>
+
+<script>
+const id = new URLSearchParams(window.location.search).get('id');
+
+fetch("https://opensheet.elk.sh/SHEET_ID/Sheet1")
+  .then(res => res.json())
+  .then(data => {
+    const c = data.find(r => r.CandidateID === id);
+    if (!c) return;
+
+    photo.src = c.PhotoLink;
+    name.innerText = c.CandidateName;
+    job.innerText = c.JobTitle;
+    nation.innerText = c.Nationality;
+    passport.innerText = c.IqamaNo + " / " + c.PassportNo;
+    dob.innerText = c.DateOfBirth;
+    marital.innerText = c.MaritalStatus;
+    mobile.innerText = c.Mobile;
+    email.innerText = c.Email;
+    education.innerText = c.Education;
+    experience.innerText = c.Experience;
+    skills.innerText = c.Skills;
+    languages.innerText = c.Languages;
+    salary.innerText = c.Salary;
+    process.innerText = c.Process;
+    status.innerText = c.Status;
+  });
+</script>
+
+</body>
+</html>
